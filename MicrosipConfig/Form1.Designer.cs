@@ -20,7 +20,8 @@
             base.Dispose(disposing);
         }
 
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             comboSetor = new ComboBox();
             txtRamal = new TextBox();
             radioInterno = new RadioButton();
@@ -51,7 +52,7 @@
             // radioInterno
             // 
             radioInterno.AutoSize = true;
-            radioInterno.Location = new Point(20, 140);
+            radioInterno.Location = new Point(20, 155);
             radioInterno.Name = "radioInterno";
             radioInterno.Size = new Size(63, 19);
             radioInterno.TabIndex = 2;
@@ -62,7 +63,7 @@
             // radioExterno
             // 
             radioExterno.AutoSize = true;
-            radioExterno.Location = new Point(90, 140);
+            radioExterno.Location = new Point(89, 155);
             radioExterno.Name = "radioExterno";
             radioExterno.Size = new Size(65, 19);
             radioExterno.TabIndex = 3;
@@ -72,7 +73,7 @@
             // 
             // btnGerar
             // 
-            btnGerar.Location = new Point(20, 180);
+            btnGerar.Location = new Point(20, 195);
             btnGerar.Name = "btnGerar";
             btnGerar.Size = new Size(75, 23);
             btnGerar.TabIndex = 4;
@@ -83,7 +84,7 @@
             // labelSetor
             // 
             labelSetor.AutoSize = true;
-            labelSetor.Location = new Point(20, 20);
+            labelSetor.Location = new Point(12, 22);
             labelSetor.Name = "labelSetor";
             labelSetor.Size = new Size(100, 15);
             labelSetor.TabIndex = 5;
@@ -92,7 +93,7 @@
             // labelRamal
             // 
             labelRamal.AutoSize = true;
-            labelRamal.Location = new Point(20, 80);
+            labelRamal.Location = new Point(12, 82);
             labelRamal.Name = "labelRamal";
             labelRamal.Size = new Size(90, 15);
             labelRamal.TabIndex = 6;
@@ -100,7 +101,7 @@
             // 
             // labelAplicacao
             // 
-            labelAplicacao.Location = new Point(20, 126);
+            labelAplicacao.Location = new Point(14, 139);
             labelAplicacao.Name = "labelAplicacao";
             labelAplicacao.Size = new Size(88, 13);
             labelAplicacao.TabIndex = 7;

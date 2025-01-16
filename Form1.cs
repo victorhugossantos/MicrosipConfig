@@ -8,13 +8,11 @@ namespace MicrosipConfig
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
+        public Form1() {
             InitializeComponent();
         }
 
-        private void btnGerar_Click(object sender, EventArgs e)
-        {
+        private void btnGerar_Click(object sender, EventArgs e) {
             try
             {
                 string setor = comboSetor.SelectedItem?.ToString();
@@ -35,24 +33,17 @@ namespace MicrosipConfig
                     ConfigurarMicrosip(caminhoIni, ramal, interno);
                     MessageBox.Show("Arquivos gerados com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else
-                {
-                    MessageBox.Show("Falha ao gerar o arquivo de contatos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
 
-            }
-            catch (UnauthorizedAccessException)
+            } catch (UnauthorizedAccessException)
             {
                 MessageBox.Show("Execute em modo administrador", "Erro de Permissão", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
+            } catch(Exception ex)
             {
                 MessageBox.Show($"Ocorreu um erro: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private bool GerarContatos(string nomeArquivo, string ramal, string setor)
-        {
+        private bool GerarContatos(string nomeArquivo, string ramal, string setor) {
             Dictionary<string, List<Contato>> setores = new Dictionary<string, List<Contato>>()
             {
                 {"CALL_CENTER", new List<Contato>
@@ -93,66 +84,47 @@ namespace MicrosipConfig
                 }
             };
 
-            if (setores.ContainsKey(setor))
-            {
-                try
-                {
-                    XmlDocument xmlDoc = new XmlDocument();
-                    XmlElement raiz = xmlDoc.CreateElement("contacts");
-                    xmlDoc.AppendChild(raiz);
+            if (setores.ContainsKey(setor)) {
+                XmlDocument xmlDoc = new XmlDocument();
+                XmlElement raiz = xmlDoc.CreateElement("contacts");
+                xmlDoc.AppendChild(raiz);
 
-                    foreach (var contato in setores[setor])
-                    {
-                        XmlElement contatoElement = xmlDoc.CreateElement("contact");
-                        contatoElement.SetAttribute("number", contato.Number);
-                        contatoElement.SetAttribute("name", contato.Name);
-                        contatoElement.SetAttribute("presence", "0");
-                        contatoElement.SetAttribute("directory", "0");
-                        contatoElement.InnerText = " ";
-                        raiz.AppendChild(contatoElement);
-                    }
-
-                    // formatar o XML com indentação
-                    xmlDoc.PreserveWhitespace = true;
-                    StringWriter stringWriter = new StringWriter();
-                    XmlTextWriter xmlWriter = new XmlTextWriter(stringWriter);
-                    xmlDoc.Save(xmlWriter);
-                    File.WriteAllText(nomeArquivo, stringWriter.ToString());
-
-                    return true;
+                foreach (var contato in setores[setor]) {
+                    XmlElement contatoElement = xmlDoc.CreateElement("contact");
+                    contatoElement.SetAttribute("number", contato.Number);
+                    contatoElement.SetAttribute("name", contato.Name);
+                    contatoElement.SetAttribute("presence", "0");
+                    contatoElement.SetAttribute("directory", "0");
+                    contatoElement.InnerText = " ";
+                    raiz.AppendChild(contatoElement);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Erro ao gerar o arquivo de contatos: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
+
+                // formatar o XML com indentação
+                xmlDoc.PreserveWhitespace = true;
+                StringWriter stringWriter = new StringWriter();
+                XmlTextWriter xmlWriter = new XmlTextWriter(stringWriter);
+                xmlDoc.Save(xmlWriter);
+                File.WriteAllText(nomeArquivo, stringWriter.ToString());
+
+                return true;
             }
 
             return false;
         }
 
-        private void ConfigurarMicrosip(string caminhoArquivo, string ramal, string interno)
-        {
+        private void ConfigurarMicrosip(string caminhoArquivo, string ramal, string interno) {
             string ipInterno = "192.168.100.247";
             string ipExterno = "10.201.192.34";
             string ip = interno == "interno" ? ipInterno : ipExterno;
 
-            try
-            {
-                using (StreamWriter writer = new StreamWriter(caminhoArquivo))
-                {
-                    writer.WriteLine("[Settings]");
-                    writer.WriteLine("updateInterval=never");
-                    writer.WriteLine("accountId=1");
-                    writer.WriteLine("autoAnswer=0");
-                    writer.WriteLine("denyIncoming=0");
-                    writer.WriteLine("ip=" + ip);
-                    writer.WriteLine("ramal=" + ramal);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao configurar o Microsip: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            using (StreamWriter writer = new StreamWriter(caminhoArquivo)) { 
+                writer.WriteLine("[Settings]");
+                writer.WriteLine("updateInterval=never");
+                writer.WriteLine("accountId=1");
+                writer.WriteLine("autoAnswer=0");
+                writer.WriteLine("denyIncoming=0");
+                writer.WriteLine("ip=" + ip);
+                writer.WriteLine("ramal=" + ramal);
             }
         }
 
@@ -161,8 +133,7 @@ namespace MicrosipConfig
             public string Number { get; set; }
             public string Name { get; set; }
 
-            public Contato(string number, string name)
-            {
+            public Contato(string number, string name) {
                 Number = number;
                 Name = name;
             }
