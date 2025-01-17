@@ -146,8 +146,16 @@ namespace MicrosipConfig
                     writer.WriteLine("accountId=1");
                     writer.WriteLine("autoAnswer=0");
                     writer.WriteLine("denyIncoming=0");
-                    writer.WriteLine("ip=" + ip);
-                    writer.WriteLine("ramal=" + ramal);
+                    writer.WriteLine("[Account1]");
+                    writer.WriteLine($"username={ramal}");
+                    writer.WriteLine($"displayName={ramal}");
+                    writer.WriteLine($"authID={ramal}");
+                    writer.WriteLine("keepAlive=15");
+                    writer.WriteLine("registerRefresh=60");
+                    writer.WriteLine($"domain={ip}");
+                    writer.WriteLine($"server={ip}");
+                    writer.WriteLine($"password=4aa9b76ca8553642415c6900a89bc554e9a140fc2e5a0cb6");
+
                 }
             }
             catch (Exception ex)
